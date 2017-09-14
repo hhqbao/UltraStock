@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "SupplierPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="supplier-page" ng-controller="suppliersController">
+    <section id="supplier-list" ng-if="views.supplierList == true">
+        @Html.Partial("SupplierList")
+    </section>
+
+    <section id="supplier-form" ng-if="views.supplierForm == true">
+        @Html.Partial("SupplierForm")
+    </section>
+
+    <section class="toast-panel" ng-if="views.invoiceForm == true">
+        <div class="toast-panel-wrap">
+            <div class="toast-panel-controls">
+                <button class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </div>
+            <div class="toast-panel-body">
+                @Html.Partial("_InvoiceForm")
+            </div>
+        </div>
+    </section>
+
+    <section id="invoice-page" ng-if="views.invoicePage == true">
+        @Html.Partial("_InvoicePage")
+    </section>
+</div>
+

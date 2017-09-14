@@ -1,0 +1,58 @@
+﻿<h2>List of Products</h2>
+<p>
+    <select class="form-control pull-left" ng-model="categoryParams.selectedCategory"
+            ng-change="actions.categoryDropListChange()"
+            ng-options="category as category.name for category in categoryParams.categoryList track by category.id"></select>
+    
+    <button class="btn btn-primary pull-right" ng-click="actions.createProduct()">Create New Product</button>
+    <div class="clearfix"></div>
+</p>
+<table class="table table-hover table-striped margin-top-20px">
+    <thead>
+        <tr class="text-danger">
+            <th>
+                <span class="glyphicon glyphicon-registration-mark"></span>
+                Reference
+            </th>
+            <th>
+                <span class="glyphicon glyphicon-book"></span>
+                Description
+            </th>
+            <th class="text-center">
+                <span class="glyphicon glyphicon-tag"></span>
+                Type
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="product in productParams.productList | filter:filterParams:true track by product.id">
+            <td class="text-middle">
+                <span ng-if="product.reference == null || product.reference == ''">Not Available</span>
+                {{product.reference}}
+            </td>
+            <td class="text-middle">
+                {{product.description}}
+            </td>
+            <td class="text-middle text-center">
+                {{product.category.name}}
+            </td>
+            <td>
+                <button class="btn btn-warning btn-sm" ng-click="actions.editProduct(product)">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Edit
+                </button>
+                <button class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Remove
+                </button>
+            </td>
+        </tr>
+
+        <tr ng-if="productParams.productList.length <= 0">
+            <td colspan="4" class="text-center text-middle">
+                There is no data!
+            </td>
+        </tr>
+    </tbody>
+</table>

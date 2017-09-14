@@ -1,0 +1,1 @@
+﻿var ultraStock = angular.module("ultraStock", []);

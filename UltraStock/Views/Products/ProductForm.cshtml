@@ -1,0 +1,46 @@
+﻿<h2>{{productForm.title}}</h2>
+
+<form name="formProduct" novalidate>
+    <p>
+        <button class="btn btn-primary btn-sm" 
+                ng-disabled="formProduct.$invalid"
+                ng-click="actions.submitProductForm()">
+            <span class="glyphicon glyphicon-save"></span>
+            Save Product
+        </button>
+        <button class="btn btn-default btn-sm" ng-click="actions.goBack()">
+            <span class="glyphicon glyphicon-share"></span>
+            Go Back
+        </button>
+    </p>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="control-label">
+                    Description
+                    <span class="text-danger">*</span>
+                </label>
+                <input type="text" class="form-control" placeholder="Product description"
+                       name="description"
+                       required
+                       ng-model="productForm.description" />
+                <span ng-if="formProduct.description.$dirty && formProduct.description.$invalid" class="text-danger">Product description is required!</span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Product Category</label>
+                <select class="form-control" ng-model="productForm.selectedCategory"
+                        ng-options="category as category.name for category in categoryParams.categoryList"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Reference Code</label>
+                <input type="text" class="form-control" placeholder="Reference Code" ng-model="productForm.reference" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            @Html.Partial("BarcodeTable")
+        </div>
+        <div class="col-sm-4">
+            @Html.Partial("ProductPriceList")
+        </div>
+    </div>
+</form>

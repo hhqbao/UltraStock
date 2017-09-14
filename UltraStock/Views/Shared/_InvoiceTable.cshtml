@@ -1,0 +1,52 @@
+﻿<p>
+    <span class="glyphicon glyphicon-search pull-left"></span>
+    <input type="text" class="form-control pull-left" placeholder="Searching value..." />
+    <button class="btn btn-default btn-sm pull-right">
+        <span class="glyphicon glyphicon-share"></span>
+        Go Back
+    </button>
+    <button class="btn btn-primary btn-sm pull-right margin-right-10px">
+        <span class="glyphicon glyphicon-plus"></span>
+        Create New Invoice
+    </button>    
+    <div class="clearfix"></div>
+</p>
+<div class="invoice-table-frame">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr class="text-danger">
+                <th>
+                    <span class="glyphicon glyphicon-tag"></span>
+                    <span>Invoice #</span>
+                </th>
+                <th>
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    <span>Date Created</span>
+                </th>
+                <th class="text-center">
+                    <span class="glyphicon glyphicon-usd"></span>
+                    <span>Subtotal</span>
+                </th>
+                <th class="text-center">
+                    <span class="glyphicon glyphicon-usd"></span>
+                    <span>Total</span>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="invoice in invoiceParams.invoiceList track by invoice.id">
+                <td class="text-middle">{{invoice.number}}</td>
+                <td class="text-middle">{{getDateFormat(invoice.date, 'DD/MM/YYYY')}}</td>
+                <td class="text-middle text-center">{{getMoneyFormat(invoice.subTotal)}}</td>
+                <td class="text-middle text-center">{{getMoneyFormat(invoice.total)}}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm" ng-click="actions.editInvoice(invoice)">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        Edit
+                    </button>
+                </td>
+            </tr>            
+        </tbody>
+    </table>
+</div>

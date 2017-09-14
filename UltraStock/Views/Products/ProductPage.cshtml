@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Product Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="product-page" ng-controller="productsController">
+    <section id="product-list" ng-if="views.productList == true">        
+        @Html.Partial("ProductList")
+    </section>
+    
+    <section id="product-form" ng-if="views.productForm == true">
+        @Html.Partial("ProductForm")
+    </section>
+</div>
+

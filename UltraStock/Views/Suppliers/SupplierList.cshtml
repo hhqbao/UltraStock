@@ -1,0 +1,59 @@
+﻿<h2>List of Suppliers</h2>
+<p>
+    <button class="btn btn-primary" ng-click="actions.createSupplier()">
+        <span class="glyphicon glyphicon-plus"></span>
+        Create New Supplier
+    </button>
+    <a href="@Url.Action("Index", "Reports")" class="btn btn-info">
+        <span class="glyphicon glyphicon-stats"></span>
+        Statistic
+    </a>
+</p>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                <span class="glyphicon glyphicon-user"></span>
+                Supplier Name
+            </th>
+            <th>
+                <span class="glyphicon glyphicon-phone"></span>
+                Phone Number
+            </th>
+            <th>
+                <span class="glyphicon glyphicon-home"></span>
+                Address
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="supplier in supplierParams.supplierList track by supplier.id">
+            <td>
+                <button class="btn btn-primary btn-sm" ng-click="actions.createNewInvoice(supplier)">
+                    <span class="glyphicon glyphicon-list-alt"></span>
+                </button>
+            </td>
+            <td class="text-middle">{{supplier.name}}</td>
+            <td class="text-middle">{{supplier.phone}}</td>
+            <td class="text-middle">{{supplier.address}}</td>
+            <td class="text-right">
+                <button class="btn btn-warning btn-sm" ng-click="actions.editSupplier(supplier)">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Edit
+                </button>
+                <button class="btn btn-success btn-sm" ng-click="actions.displayInvoicesFromSupplier(supplier)">
+                    <span class="glyphicon glyphicon-file"></span>
+                    Invoices
+                </button>                
+                <button class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+            </td>
+        </tr>
+        <tr ng-if="supplierParams.supplierList.length <= 0">
+            <td colspan="4" class="text-center">There is no data!</td>
+        </tr>
+    </tbody>
+</table>

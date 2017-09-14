@@ -1,0 +1,66 @@
+﻿<table id="barcode-table" class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                <span class="glyphicon glyphicon-barcode"></span>
+                Barcode List
+            </th>
+            <th class="text-center">
+                <span class="glyphicon glyphicon-cog"></span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="barCode in productForm.barCodes">
+            <td class="text-middle">
+                <input type="text" class="form-control"
+                       ng-if="barCode == productForm.selectedBarCode"
+                       ng-model="barCode.value" />
+
+                <span ng-if="barCode != productForm.selectedBarCode">{{barCode.value}}</span>
+                <span ng-if="barCode.id < 0" class="pull-right text-danger">- Delete -</span>
+                <span ng-if="barCode.id == 0" class="pull-right text-success">- New -</span>
+            </td>
+            <td class="text-center">
+                <button class="btn btn-warning btn-sm"
+                        ng-if="barCode != productForm.selectedBarCode && barCode.id >= 0"
+                        ng-click="actions.editBarCode(barCode)">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </button>
+                <button class="btn btn-success btn-sm"
+                        ng-disabled="barCode.value === ''"
+                        ng-if="barCode == productForm.selectedBarCode && barCode.id >= 0"
+                        ng-click="actions.saveBarCode()">
+                    <span class="glyphicon glyphicon-save"></span>
+                </button>
+                <button class="btn btn-danger btn-sm"
+                        ng-if="barCode.id >= 0"
+                        ng-disabled="barCode == productForm.selectedBarCode"
+                        ng-click="actions.removeBarCode(barCode)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+                <button class="btn btn-success btn-sm"
+                        ng-if="barCode.id < 0"
+                        ng-disabled="barCode == productForm.selectedBarCode"
+                        ng-click="actions.restoreBarCode(barCode)">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" class="form-control" placeholder="Enter product barcode"
+                       ng-model="productForm.newBarCode" />
+            </td>
+            <td class="text-center">
+                <button class="btn btn-primary"
+                        ng-click="actions.addNewBarCode()"
+                        ng-disabled="productForm.newBarCode == null || productForm.newBarCode == ''">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Add
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltraStock", "UltraStock\UltraStock.csproj", "{A93C2DA4-696A-4768-A4D5-8EDA35431FF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltraStock.Tests", "UltraStock.Tests\UltraStock.Tests.csproj", "{90E72978-6DE6-4D36-ADC8-5C7D441EFF93}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A93C2DA4-696A-4768-A4D5-8EDA35431FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93C2DA4-696A-4768-A4D5-8EDA35431FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93C2DA4-696A-4768-A4D5-8EDA35431FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93C2DA4-696A-4768-A4D5-8EDA35431FF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90E72978-6DE6-4D36-ADC8-5C7D441EFF93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90E72978-6DE6-4D36-ADC8-5C7D441EFF93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90E72978-6DE6-4D36-ADC8-5C7D441EFF93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90E72978-6DE6-4D36-ADC8-5C7D441EFF93}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://hhqbao.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = UltraStock.Tests\\UltraStock.Tests.csproj
+		SccProjectName1 = UltraStock.Tests
+		SccLocalPath1 = UltraStock.Tests
+		SccProjectUniqueName2 = UltraStock\\UltraStock.csproj
+		SccProjectName2 = UltraStock
+		SccLocalPath2 = UltraStock
+	EndGlobalSection
+EndGlobal

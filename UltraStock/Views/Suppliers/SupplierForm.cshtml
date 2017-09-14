@@ -1,0 +1,43 @@
+﻿<h2 ng-bind="supplierForm.title"></h2>
+<form name="formSupplier" novalidate>
+    <div class="form-group">
+        <label class="control-label">Supplier Name</label>
+        <input type="text" class="form-control" name="supplierName" required ng-model="supplierForm.name" />
+        <span class="text-danger" ng-if="formSupplier.supplierName.$dirty && formSupplier.supplierName.$invalid">
+            Supplier's name is required!
+        </span>
+    </div>
+    <div class="form-group">
+        <label class="control-label">ABN Number</label>
+        <input type="tel" class="form-control" name="contactNumber" ng-model="supplierForm.abn" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">ACN Number</label>
+        <input type="tel" class="form-control" name="contactNumber" ng-model="supplierForm.acn" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Contact Number</label>
+        <input type="tel" class="form-control" name="contactNumber" ng-model="supplierForm.phone" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Fax Number</label>
+        <input type="tel" class="form-control" name="contactNumber" ng-model="supplierForm.fax" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Mobile</label>
+        <input type="tel" class="form-control" name="contactNumber" ng-model="supplierForm.mobile" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Address</label>
+        <textarea class="form-control" name="supplierAddress" ng-model="supplierForm.address"></textarea>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Post Address</label>
+        <textarea class="form-control" name="supplierAddress" ng-model="supplierForm.postAddress"></textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-sm" ng-disabled="formSupplier.$invalid" ng-click="actions.submitForm()">Submit</button>
+        <button class="btn btn-default btn-sm" ng-click="actions.backToList()">Cancel</button>
+    </div>
+</form>
+

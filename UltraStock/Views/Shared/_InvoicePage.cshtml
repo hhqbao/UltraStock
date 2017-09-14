@@ -1,0 +1,49 @@
+﻿<div id="invoice-page">
+    <section class="invoice-heading">
+        <h2 class="text-danger">{{supplierParams.selectedSupplier.name}}</h2>
+        <ul>
+            <li>
+                <span class="margin-right-40px">
+                    <b>A.B.N:</b>
+                    <span ng-if="supplierParams.selectedSupplier.abn == null">Not Available</span>
+                    <span>{{supplierParams.selectedSupplier.abn}}</span>
+                </span>
+                <span>
+                    <b>A.C.N:</b>
+                    <span ng-if="supplierParams.selectedSupplier.acn == null">Not Available</span>
+                    <span>{{supplierParams.selectedSupplier.acn}}</span>
+                </span>
+            </li>
+            <li>
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <span>{{supplierParams.selectedSupplier.address}}</span>
+            </li>
+            <li>
+                <span class="glyphicon glyphicon-envelope"></span>
+                <span ng-if="supplierParams.selectedSupplier.postAddress == null">Not Available</span>
+                <span>{{supplierParams.selectedSupplier.postAddress}}</span>
+            </li>
+            <li>
+                <span class="margin-right-20px">
+                    <span class="glyphicon glyphicon-phone-alt"></span>
+                    <span>{{supplierParams.selectedSupplier.phone}}</span>
+                </span>
+                <span class="margin-right-20px">
+                    <b>Fax:</b>
+                    <span ng-if="supplierParams.selectedSupplier.fax == null">Not Available</span>
+                    <span>{{supplierParams.selectedSupplier.fax}}</span>
+                </span>
+                <span>
+                    <span class="glyphicon glyphicon-phone"></span>
+                    <span ng-if="supplierParams.selectedSupplier.mobile == null">Not Available</span>
+                    <span>{{supplierParams.selectedSupplier.mobile}}</span>
+                </span>
+            </li>
+        </ul>
+    </section>
+
+    <section id="invoice-table">
+        <hr/>
+        @Html.Partial("_InvoiceTable")
+    </section>
+</div>

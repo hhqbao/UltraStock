@@ -1,0 +1,203 @@
+﻿<div class="invoice-form">
+    <h2>{{invoiceForm.title}}</h2>
+    <p>
+        <button class="btn btn-primary btn-sm"
+                ng-disabled="formInvoice.$invalid || invoiceForm.invoiceDetails.length <= 0 || invoiceForm.discountRate < 0 || invoiceForm.discountRate > 100"
+                ng-click="actions.submitInvoiceForm()">
+            <span class="glyphicon glyphicon-save"></span>
+            Save Invoice
+        </button>
+        <button class="btn btn-default btn-sm" ng-click="actions.cancelInvoiceForm()">
+            <span class="glyphicon glyphicon-share"></span>
+            Go Back
+        </button>
+    </p>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Invoice Detail</h3>
+                </div>
+                <div class="panel-body">
+                    <form name="formInvoice" novalidate>
+                        <div class="form-group">
+                            <label class="control-label">Invoice Number</label>
+                            <input type="text" class="form-control" placeholder="Invoice #"
+                                   required
+                                   ng-model="invoiceForm.number" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">From Supplier</label>
+                            <select class="form-control"
+                                    ng-disabled="invoiceForm.isAdding == false"
+                                    ng-model="invoiceForm.selectedSupplier"
+                                    ng-options="supplier as supplier.name for supplier in supplierParams.supplierList"></select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Invoice Date</label>
+                            <input type="date" class="form-control" placeholder="Invoice Date"
+                                   required
+                                   ng-model="invoiceForm.date" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Discount Rate %</label>
+                            <input type="number" class="form-control" placeholder="Discount %" 
+                                   required
+                                   min="0"
+                                   max="100"
+                                   ng-change="actions.updateInvoiceTotal()"
+                                   ng-model="invoiceForm.discountRate" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table">
+                        <tr>
+                            <td class="text-danger text-bold">
+                                Subtotal
+                            </td>
+                            <td>
+                                {{getMoneyFormat(invoiceForm.subTotal)}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-danger text-bold">
+                                Discount
+                            </td>
+                            <td>
+                                {{getMoneyFormat((invoiceForm.discountRate * invoiceForm.subTotal) / 100)}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-danger text-bold">
+                                Total Invoice
+                            </td>
+                            <td>
+                                {{getMoneyFormat(invoiceForm.total)}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-9">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">List of Items</h3>
+                </div>
+                <div class="panel-body">
+                    <table id="invoice-detail-table" class="table table-hover table-striped">
+                        <thead>
+                        <tr class="text-danger">
+                            <th>Reference</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Price $</th>
+                            <th>GST $</th>
+                            <th>Discount %</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="invoiceDetail in invoiceForm.invoiceDetails">
+                            <td class="text-middle">{{invoiceDetail.product.reference}}</td>
+                            <td class="text-middle">
+                                {{invoiceDetail.product.description}}
+                                <span ng-if="invoiceDetail.action !== null" class="pull-right">
+                                    <span ng-if="invoiceDetail.action == 1" class="text-success text-bold">New</span>
+                                    <span ng-if="invoiceDetail.action == 2" class="text-warning text-bold">Updated</span>
+                                    <span ng-if="invoiceDetail.action == 3" class="text-danger text-bold">Removed</span>
+                                </span>
+                            </td>
+                            <td class="text-middle">{{invoiceDetail.quantity}}</td>
+                            <td class="text-middle">{{getMoneyFormat(invoiceDetail.price)}}</td>
+                            <td class="text-middle">{{getMoneyFormat(invoiceDetail.gst)}}</td>
+                            <td class="text-middle">{{invoiceDetail.discountRate}}%</td>                            
+                            <td class="text-middle">{{getMoneyFormat(invoiceDetail.total)}}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                                <button ng-if="invoiceDetail.action === 3" class="btn btn-success btn-sm" ng-click="actions.restoreInvoiceDetail(invoiceDetail)">
+                                    <span class="glyphicon glyphicon-refresh"></span>
+                                </button>
+                                <button ng-if="invoiceDetail.action !== 3" class="btn btn-danger btn-sm" ng-click="actions.removeInvoiceDetail(invoiceDetail)">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr ng-if="invoiceForm.invoiceDetails.length <= 0">
+                            <td colspan="8">This invoice is empty!</td>
+                        </tr>
+
+                        <tr>
+                            <td class="invoice-reference-td">
+                                <input type="text" class="form-control" placeholder="Reference"
+                                       ng-change="actions.searchProductByReference()"
+                                       ng-model="invoiceForm.detailForm.reference" />
+                            </td>
+                            <td class="invoice-description-td">
+                                <input type="text" class="form-control" placeholder="Description"
+                                       ng-change="actions.searchProductsByDescription()"
+                                       ng-model="invoiceForm.detailForm.description" />
+
+                                <div class="list-group">
+                                    <button type="button" class="list-group-item text-center" disabled
+                                            ng-if="invoiceForm.detailForm.isLoading === true">
+                                        Please Wait...
+                                    </button>
+                                    <button type="button" class="list-group-item text-center" disabled
+                                             ng-if="invoiceForm.detailForm.products.length <= 0 && invoiceForm.detailForm.isLoading === false">
+                                        <span class="text-danger">Could not find any product!</span>
+                                    </button>
+                                    <button type="button" class="list-group-item"
+                                            ng-click="actions.selectProductFromList(product)"
+                                            ng-repeat="product in invoiceForm.detailForm.products"
+                                            ng-disabled="actions.isProductAlreadySelected(product) == true">
+                                        <span class="glyphicon glyphicon-minus-sign text-danger" ng-if="actions.isProductAlreadySelected(product) == true"></span>
+                                        {{product.description}}
+                                    </button>
+                                </div>
+                            </td>
+                            <td class="invoice-quantity-td">
+                                <input type="number" class="form-control" placeholder="Quantity"
+                                       min="0"
+                                       ng-model="invoiceForm.detailForm.quantity" />
+                            </td>
+                            <td class="invoice-price-td">
+                                <input type="number" class="form-control" placeholder="Price $"
+                                       min="0"
+                                       ng-model="invoiceForm.detailForm.price" />
+                            </td>
+                            <td class="invoice-price-td">
+                                <input type="number" class="form-control" placeholder="GST"
+                                       min="0"
+                                       ng-model="invoiceForm.detailForm.gst" />
+                            </td>
+                            <td class="invoice-discount-td">
+                                <input type="number" class="form-control"
+                                       min="0"
+                                       ng-model="invoiceForm.detailForm.discountRate" />
+                            </td>
+                            <td class="text-middle" colspan="2">
+                                <button class="btn btn-primary btn-sm"
+                                        ng-disabled="invoiceForm.detailForm.productId == 0 || invoiceForm.detailForm.quantity <= 0 || invoiceForm.detailForm.price < 0 || invoiceForm.detailForm.discountRate < 0 || invoiceForm.detailForm.discountRate > 100 || invoiceForm.detailForm.gst < 0 || invoiceForm.detailForm.gst >= invoiceForm.price"                                            
+                                        ng-click="actions.addDetailToInvoice()">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    Add
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
